@@ -8,8 +8,13 @@ window.onresize = resize_content;
 window.onload = function() {
   resize_content();
   var webview = document.getElementById("webview");
+
   webview.addEventListener('contentload', function(){
     webview.executeScript({ code: '[].forEach.call(document.querySelectorAll("[data-chrome-app=show]"), function(element){element.classList.remove("hidden")})' });
     webview.executeScript({ code: '[].forEach.call(document.querySelectorAll("[data-chrome-app=hidden]"), function(element){element.classList.add("hidden")})' });
+  });
+
+  webview.addEventListener('newwindow', function(e) {
+    window.open(e.targetUrl);
   });
 };
